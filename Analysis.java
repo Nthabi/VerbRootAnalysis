@@ -26,7 +26,6 @@ public class Analysis{
         String permutation = "";
         for(int j=0; j<extPermutations.get(i).size(); j++){
           permutation += extPermutations.get(i).get(j);
-          //System.out.print(out.get(i).get(j) + "");
         }
         out.write(permutation + "\n");
       }
@@ -35,8 +34,6 @@ public class Analysis{
       System.err.println("Error while writing to file: " +
              e.getMessage());
     }
-
-
   }
 
   public static ArrayList<String> readFile(String filename){
@@ -51,26 +48,9 @@ public class Analysis{
     }catch(IOException e){
       System.out.println("IO Error");
     }
-
     return verbArray;
-
   }
 
-  public static void writeToFile(String filename, ArrayList<String> wordsToWrite){
-    try{
-	  FileWriter fstream = new FileWriter(filename,true);
-	  BufferedWriter out = new BufferedWriter(fstream);
-    for(String word: wordsToWrite){
-        out.write(word +"\n");
-    }
-
-	  out.close();
-  }catch (Exception e){
-	 System.err.println("Error while writing to file: " +
-          e.getMessage());
-  }
-
-  }
 
   public static void rootExtCombinations(){
     /*Takes root extensions and creates possible combinations of longer extensions*/
