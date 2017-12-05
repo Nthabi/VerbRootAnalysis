@@ -3,26 +3,33 @@ import java.io.*;
 
 public class Analysis{
   public static void main(String[] args){
-    Scanner k = new Scanner(System.in);
-    File zulu = new File("zuluRoots.txt");
-    File xhosa = new File("xhosaRoots.txt");
+  
+    ArrayList<String> zuluVerbs = readFile("zuluRoots.txt");
+    ArrayList<String> xhosaVerbs = readFile("xhosaRoots.txt");
 
-    ArrayList<String> zuluVerbs = new ArrayList<String>();
-    ArrayList<String> xhosaVerbs = new ArrayList<String>();
+
+
+  }
+
+  public static ArrayList<String> readFile(String filename){
+    Scanner scan = new Scanner(System.in);
+    File inputFile = new File(filename);
+    ArrayList<String> verbArray = new ArrayList<String>();
     try{
-      k = new Scanner(zulu);
-      while(k.hasNextLine()){
-        zuluVerbs.add(k.nextLine());
-      }
-      k = new Scanner(xhosa);
-      while(k.hasNextLine()){
-        xhosaVerbs.add(k.nextLine());
+      scan = new Scanner(inputFile);
+      while(scan.hasNextLine()){
+        verbArray.add(scan.nextLine());
       }
     }catch(IOException e){
       System.out.println("IO Error");
     }
 
+    return verbArray;
 
+  }
+
+  public static void rootExtCombinations(){
+    /*Takes root extensions and creates possible combinations of longer extensions*/
 
   }
 }
