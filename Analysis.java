@@ -2,6 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class Analysis{
+  int withExtensionCount = 0;
+  int withoutExtensionCount = 0;
   public static void main(String[] args){
 
     //read in verb roots
@@ -12,8 +14,8 @@ public class Analysis{
     rootExtCombinations();
 
     //getVerbEndings matches
-    rootEndings(zuluVerbs);
-    rootEndings(xhosaVerbs);
+    //  rootEndings(zuluVerbs);
+    //rootEndings(xhosaVerbs);
 
 
   }
@@ -44,8 +46,17 @@ public class Analysis{
     }catch(IOException e){
       System.err.println(e.getMessage());
     }
+  }
 
-
+  public static void writeToFile(String outputFile, String word){
+    try{
+      FileWriter fstream = new FileWriter(outputFile,true);
+      BufferedWriter out = new BufferedWriter(fstream);
+      out.write(word + '\n');
+      out.close();
+    }catch(IOException e){
+      System.err.println(e.getMessage());
+    }
   }
 
 
@@ -69,7 +80,7 @@ public class Analysis{
         for(int j=0; j<extPermutations.get(i).size(); j++){
           permutation += extPermutations.get(i).get(j);
         }
-        out.write(permutation + "\n");
+        searchFile(outputFile,permutation);
       }
       out.close();
     }catch(IOException e){
@@ -83,7 +94,9 @@ public class Analysis{
     //read in extensions.txt, check endings, keep count and write to file
     ArrayList<String> verbExtensions = readFile("extensions.txt");
     ArrayList<String> matchingVerbRoots = new ArrayList<String>(); //array to keep matching roots
+    HashMap<String,ArrayList<String>> organizedMatchingRoots = new HashMap<String,ArrayList<String>>();
     int wordCount = 0;
+    ArrayList<String> rootsOnly = new ArrayList<String>(); //stores the roots without the extensions
 
     for(String verbRoot: verbRoots){
       if(verbRoot.length() > 2){
@@ -94,7 +107,10 @@ public class Analysis{
             if(verbEnding.equals(extension)){
               wordCount++;
               matchingVerbRoots.add(verbRoot);
-              System.out.println(extension + " " + verbRoot);
+              //System.out.println(extension + " " + verbRoot);
+              String noExtension = verbRoot.substring(0,verbRoot.length()-2);
+              rootsOnly.add(noExtension.substring(0,verbRoot.length()-2));
+
             }
           }
           //
@@ -104,21 +120,59 @@ public class Analysis{
             if(verbEnding.equals(extension)){
               wordCount++;
               matchingVerbRoots.add(verbRoot);
-              System.out.println(extension + " " + verbRoot);
+              //System.out.println(extension + " " + verbRoot);
+              rootsOnly.add(verbEnding.substring(0,verbRoot.length()-1));
             }
           }
           else{
             if(verbEnding.equals(extension)){
               wordCount++;
               matchingVerbRoots.add(verbRoot);
-              System.out.println(extension + " " + verbRoot);
+              //System.out.println(extension + " " + verbRoot);
+              //rootsOnly.add(verbEnding);
             }
           }
         }
 
+
       }
     }
+
   }
 
-  
+  public static void checkDuplicates(String filename){
+    /*check if string exists in file before */
+  }
+
+  public static void rootsWithoutExtensions(ArrayList<String> vroots){
+    // Extract the roots without the extensions and write to file and keep count
+    ArrayList<String> extensions = new ArrayList<String>();
+    ArrayList<String> temp1 = readFile("extensions.txt");
+    ArrayList<String> temp2 = readFile("extensionsPermutations.txt");
+    int count = 0;
+    for(String root : vroots){
+
+    }
+
+  }
+
+  public static void PercentageCalc(){
+    /*nr of roots without extensions (so if with extensions then count only
+bon but not the bonis bonel etc) / nr of roots that have >=1 extensions
+as well] * 100.*/
+
+
+  }
+
+  public static void searchFile(String outFile, String inputWord){
+    //check if element exists in file
+    ArrayList<String> words = readFile(outFile);
+    if(words.contains(inputWord)){
+      //do nothing
+    }else{
+      //write to file
+      writeToFile(outFile,inputWord);
+    }
+
+  }
 }
