@@ -14,7 +14,8 @@ public class Analysis{
     rootExtCombinations();
 
     //getVerbEndings matches
-    //  rootEndings(zuluVerbs);
+     rootEndings(zuluVerbs, "rootEndings.txt");
+    // rootsWithoutExtensions(zuluVerbs, "zuluNoExt.txt");
     //rootEndings(xhosaVerbs);
 
 
@@ -40,7 +41,10 @@ public class Analysis{
       FileWriter fstream = new FileWriter(outputFile,true);
       BufferedWriter out = new BufferedWriter(fstream);
       for(String element: values){
-        out.write(element + '\n');
+        boolean wordExists = searchFile(outputFile,element);
+        if(!wordExists){
+          out.write(element + '\n');
+        }
       }
       out.close();
     }catch(IOException e){
@@ -52,7 +56,11 @@ public class Analysis{
     try{
       FileWriter fstream = new FileWriter(outputFile,true);
       BufferedWriter out = new BufferedWriter(fstream);
-      out.write(word + '\n');
+      boolean wordExists = searchFile(outputFile,word);
+      if(!wordExists){
+        out.write(word + '\n');
+      }
+
       out.close();
     }catch(IOException e){
       System.err.println(e.getMessage());
@@ -90,70 +98,66 @@ public class Analysis{
 
   }
 
-  public static void rootEndings(ArrayList<String> verbRoots){
+  public static void rootEndings(ArrayList<String> verbRoots,String filename){
     //read in extensions.txt, check endings, keep count and write to file
     ArrayList<String> verbExtensions = readFile("extensions.txt");
-    ArrayList<String> matchingVerbRoots = new ArrayList<String>(); //array to keep matching roots
-    HashMap<String,ArrayList<String>> organizedMatchingRoots = new HashMap<String,ArrayList<String>>();
-    int wordCount = 0;
-    ArrayList<String> rootsOnly = new ArrayList<String>(); //stores the roots without the extensions
+    ArrayList<String> matchingVerbRoots = new ArrayList<String>(); //array to keep roots that match with extensions
+    ArrayList<String> noExtensions = new ArrayList<String>(); //keeps roots without the extensions
 
-    for(String verbRoot: verbRoots){
-      if(verbRoot.length() > 2){
-        for(int i=0; i<verbExtensions.size(); i++){
-          String extension = verbExtensions.get(i);
-          String verbEnding = verbRoot.substring(verbRoot.length()-2);
-          if(extension.length() == 2){
-            if(verbEnding.equals(extension)){
-              wordCount++;
-              matchingVerbRoots.add(verbRoot);
-              //System.out.println(extension + " " + verbRoot);
-              String noExtension = verbRoot.substring(0,verbRoot.length()-2);
-              rootsOnly.add(noExtension.substring(0,verbRoot.length()-2));
-
-            }
+    for(String extension: verbExtensions){
+      writeToFile(filename,extension);
+      int wordCount = 0;
+      int extLen = extension.length();
+      if(extLen == 1){
+        for(String verbRoot: verbRoots){
+          String verbEnding = ""+ verbRoot.substring(verbRoot.length()-1);
+          if(verbEnding.equals(extension)){
+            wordCount++;
+            writeToFile(filename,verbRoot);
+            String noExt = verbRoot.substring(0,verbRoot.length()-1);
+            noExtensions.add(noExt);
           }
-          //
-          //String verbEnding = verbRoot.substring(verbRoot.length()-2);
-          if(extension.length() == 1){
-            verbEnding = verbRoot.substring(verbRoot.length()-1);
+        }
+        //String finalCount = "Total roots ending in "+extension + ": " + wordCount+ "\n";
+        //searchFile(filename,finalCount);
+        writeToFile(filename,"\n");
+      }else{
+        for(String verbRoot: verbRoots){
+          int rootLength = verbRoot.length();
+          String verbEnding = verbRoot.substring(rootLength -2);
+          if(extension.length() == verbEnding.length()){
             if(verbEnding.equals(extension)){
               wordCount++;
-              matchingVerbRoots.add(verbRoot);
-              //System.out.println(extension + " " + verbRoot);
-              rootsOnly.add(verbEnding.substring(0,verbRoot.length()-1));
-            }
-          }
-          else{
-            if(verbEnding.equals(extension)){
-              wordCount++;
-              matchingVerbRoots.add(verbRoot);
-              //System.out.println(extension + " " + verbRoot);
-              //rootsOnly.add(verbEnding);
+              writeToFile(filename,verbRoot);
+              String noExt = verbRoot.substring(0,verbRoot.length()-2);
+              noExtensions.add(noExt);
             }
           }
         }
-
-
+        writeToFile(filename,"\n");
+        //String finalCount = "Total roots ending in "+extension + ": " + wordCount + "\n";
+        //searchFile(filename,finalCount);
       }
     }
-
+    writeToFile("noExtRoots.txt",noExtensions);
   }
 
-  public static void checkDuplicates(String filename){
-    /*check if string exists in file before */
-  }
 
-  public static void rootsWithoutExtensions(ArrayList<String> vroots){
+  public static void rootsWithoutExtensions(ArrayList<String> vroots, String outputFile){
     // Extract the roots without the extensions and write to file and keep count
     ArrayList<String> extensions = new ArrayList<String>();
     ArrayList<String> temp1 = readFile("extensions.txt");
     ArrayList<String> temp2 = readFile("extensionsPermutations.txt");
+    extensions.addAll(temp1);
+    extensions.addAll(temp2);
     int count = 0;
-    for(String root : vroots){
-
+    for(String ext: extensions){
+      int extLen = ext.length();
+      for(String root : vroots){
+        String newRoot = root.substring(0,root.length()-extLen);
+        writeToFile(outputFile, newRoot);
+      }
     }
-
   }
 
   public static void PercentageCalc(){
@@ -164,15 +168,15 @@ as well] * 100.*/
 
   }
 
-  public static void searchFile(String outFile, String inputWord){
+  public static boolean searchFile(String outFile, String inputWord){
     //check if element exists in file
     ArrayList<String> words = readFile(outFile);
     if(words.contains(inputWord)){
-      //do nothing
+      return true;
     }else{
-      //write to file
-      writeToFile(outFile,inputWord);
+      return false;
     }
 
   }
+
 }

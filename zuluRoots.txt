@@ -18,7 +18,6 @@ enziw
 akhiw
 gijim
 gijimis
-
 ab
 abel
 abul
@@ -562,7 +561,6 @@ cwethul
 cwil
 cwilis
 cwiy
-
 dabuk
 dabukis
 dabul
@@ -775,7 +773,6 @@ dweklez
 dwenguk
 dwengul
 dweshul
-
 eba
 ebolek
 ebuk
@@ -946,7 +943,6 @@ eyam
 eyamis
 eyis
 ezel
-
 fa
 facak
 facaz
@@ -1097,7 +1093,6 @@ fuy
 fuz
 fuzis
 fuzul
-
 gabadel
 gabavul
 gabaz
@@ -1469,7 +1464,6 @@ gxumek
 gxush
 gxwal
 gxwalel
-
 habhuk
 habhul
 habhuz
@@ -1752,7 +1746,6 @@ hwibil
 hwith
 hwixil
 hwixiz
-
 jabh
 jabul
 jah
@@ -1815,7 +1808,6 @@ jwaphun
 jwayel
 jwayez
 jwib
-
 kabh
 kad
 ka
@@ -2163,7 +2155,6 @@ kwapun
 kwelet
 kweq
 kwitiz
-
 labalab
 labalabel
 labhalal
@@ -2276,7 +2267,6 @@ luth
 luthuz
 lw
 lwis
-
 ma
 maklak
 maklaz
@@ -2366,7 +2356,6 @@ munc
 mumath
 munguny
 munyung
-
 na
 nab
 nabal
@@ -2771,7 +2760,6 @@ nyund
 nyundel
 nyunduk
 nzonzobal
-
 od
 ojayel
 ojayez
@@ -2802,7 +2790,6 @@ othuk
 othul
 othus
 ozel
-
 pak
 pakish
 pakul
@@ -2907,7 +2894,6 @@ phaphathek
 phaphazel
 phaphulek
 phaqak
-
 qabathek
 qabavul
 qabuk
@@ -3179,12 +3165,10 @@ qwath
 qwayis
 qweng
 qwengul
-
 raphuzel
 rathuz
 rejist
 rek
-
 sa
 sab
 sabalal
@@ -3495,7 +3479,6 @@ swelek
 swelel
 swibil
 swininiz
-
 tabuzel
 tadish
 tak
@@ -3808,7 +3791,6 @@ tul
 tus
 twen
 twetwezel
-
 va
 vac
 vacul
@@ -3902,7 +3884,6 @@ vuthw
 vuvuk
 vuvuzel
 vuz
-
 wa
 wahlazel
 wahlel
@@ -3945,7 +3926,6 @@ wundul
 wung
 wungul
 wush
-
 xab
 xabalaz
 xaban
@@ -4042,7 +4022,6 @@ xunguzel
 xwas
 xway
 xwayis
-
 ya
 yabathek
 yabhuk
@@ -4083,7 +4062,6 @@ yocuk
 yocul
 yovuk
 yovul
-
 za
 zabalaz
 zac
