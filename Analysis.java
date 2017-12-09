@@ -63,7 +63,7 @@ public class Analysis{
 
       out.close();
     }catch(IOException e){
-      System.err.println(e.getMessage());
+      System.err.println("Error while writing word to file " +e.getMessage());
     }
   }
 
@@ -87,8 +87,10 @@ public class Analysis{
         String permutation = "";
         for(int j=0; j<extPermutations.get(i).size(); j++){
           permutation += extPermutations.get(i).get(j);
+          writeToFile(outputFile,permutation);
         }
-        searchFile(outputFile,permutation);
+
+
       }
       out.close();
     }catch(IOException e){
