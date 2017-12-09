@@ -15,7 +15,7 @@ public class Analysis{
 
     //getVerbEndings matches
      rootEndings(zuluVerbs, "rootEndings.txt");
-    // rootsWithoutExtensions(zuluVerbs, "zuluNoExt.txt");
+     rootsWithoutExtensions(zuluVerbs, "zuluNoExt.txt");
     //rootEndings(xhosaVerbs);
 
 
@@ -114,8 +114,8 @@ public class Analysis{
           if(verbEnding.equals(extension)){
             wordCount++;
             writeToFile(filename,verbRoot);
-            String noExt = verbRoot.substring(0,verbRoot.length()-1);
-            noExtensions.add(noExt);
+            //String noExt = verbRoot.substring(0,verbRoot.length()-1);
+            //noExtensions.add(noExt);
           }
         }
         //String finalCount = "Total roots ending in "+extension + ": " + wordCount+ "\n";
@@ -129,8 +129,8 @@ public class Analysis{
             if(verbEnding.equals(extension)){
               wordCount++;
               writeToFile(filename,verbRoot);
-              String noExt = verbRoot.substring(0,verbRoot.length()-2);
-              noExtensions.add(noExt);
+              //String noExt = verbRoot.substring(0,verbRoot.length()-2);
+              //noExtensions.add(noExt);
             }
           }
         }
@@ -154,8 +154,12 @@ public class Analysis{
     for(String ext: extensions){
       int extLen = ext.length();
       for(String root : vroots){
-        String newRoot = root.substring(0,root.length()-extLen);
-        writeToFile(outputFile, newRoot);
+        String ending = root.substring(root.length()-extLen);
+        if(ending.equals(ext)){
+          String newRoot = root.substring(0,root.length()-extLen);
+          writeToFile(outputFile, newRoot);
+          count++;
+        }
       }
     }
   }
