@@ -1,3 +1,6 @@
+/* Author: Nthabiseng Mashiane
+  Date: 5 December 2017
+  Code to create permutations of strings*/
 import java.util.*;
 
 public class Permute{

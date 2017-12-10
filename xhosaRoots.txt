@@ -17,7 +17,6 @@ az
 azis
 azisw
 aziw
-
 banjw
 bas
 baw
@@ -73,7 +72,6 @@ buyel
 buyisel
 buz
 buzw
-
 cac
 cacis
 cacisel
@@ -108,7 +106,6 @@ col
 coth
 cwangcis
 cwangcisw
-
 dad
 dal
 damb
@@ -129,7 +126,6 @@ dumb
 dumis
 dwelis
 dwelisw
-
 end
 endel
 enjenjal
@@ -144,7 +140,6 @@ enzelw
 enziw
 etyis
 eyel
-
 fa
 fak
 fakw
@@ -183,7 +178,6 @@ fung
 funw
 funx
 funyanw
-
 gabul
 gad
 galel
@@ -216,7 +210,6 @@ gwetyw
 gxininis
 gxoth
 gxwal
-
 hamb
 hambel
 hambelan
@@ -249,7 +242,6 @@ hloniph
 hluph
 hluphek
 hluz
-
 jal
 jam
 jikel
@@ -259,7 +251,6 @@ jolisw
 jong
 jongan
 jongw
-
 kekel
 kh
 khab
@@ -310,7 +301,6 @@ khuz
 khwaz
 khwel
 kotshw
-
 lahl
 lahlek
 lahlekelw
@@ -349,7 +339,6 @@ lungselel
 lungiselelw
 lungisw
 lw
-
 ma
 mangalis
 mangalisw
@@ -367,7 +356,6 @@ misw
 mith
 mk
 mpomp
-
 na
 nakan
 nakh
@@ -442,7 +430,6 @@ nyibilik
 nyuk
 nyulw
 nyus
-
 olul
 om
 omelel
@@ -466,7 +453,6 @@ oyik
 oyikek
 oyis
 oyisw
-
 pel
 peyint
 ph
@@ -522,7 +508,6 @@ phung
 phungw
 phuph
 pos
-
 qabel
 qal
 qalis
@@ -563,13 +548,11 @@ qulath
 qulunq
 qwalasel
 qwalaswelw
-
 rekhodish
 rhal
 rhawuzel
 rhol
 rhon
-
 sa
 sab
 sabel
@@ -619,7 +602,6 @@ sus
 susel
 swel
 swelek
-
 tha
 thabath
 thakah
@@ -686,7 +668,6 @@ tyhil
 tyhol
 tyiblik
 tyiw
-
 va
 vakal
 vakalis
@@ -719,7 +700,6 @@ vuthuz
 vuthw
 vuy
 vuyis
-
 xab
 xabis
 xakek
@@ -739,7 +719,6 @@ xolis
 xox
 xoxwa
 xub
-
 ya
 yalel
 yalez
@@ -748,7 +727,6 @@ yekel
 yil
 yilw
 yolis
-
 za
 zal
 zalelw

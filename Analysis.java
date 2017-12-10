@@ -1,9 +1,13 @@
+/* Author: Nthabiseng Mashiane
+  Date: 5 December 2017
+  Code to do verb root analysis on zulu and xhosa words*/
 import java.util.*;
 import java.io.*;
 
 public class Analysis{
-  int withExtensionCount = 0;
-  int withoutExtensionCount = 0;
+
+  int zuluCount;
+  int xhosaCount;
   public static void main(String[] args){
 
     //read in verb roots
@@ -14,9 +18,17 @@ public class Analysis{
     rootExtCombinations();
 
     //getVerbEndings matches
-     rootEndings(zuluVerbs, "rootEndings.txt");
-     rootsWithoutExtensions(zuluVerbs, "zuluNoExt.txt");
-    //rootEndings(xhosaVerbs);
+     HashMap<String,Integer> zuluStats = rootEndings(zuluVerbs, "zExtensionsSort.txt");
+     HashMap<String,Integer> xhosaStats = rootEndings(xhosaVerbs, "xExtensionsSort.txt");
+
+     int zuluCount = rootsWithoutExtensions(zuluVerbs, "zuluNoExt.txt"); //number of roots with no extension
+     int xhosaCount = rootsWithoutExtensions(xhosaVerbs, "xhosaNoExt.txt");
+     System.out.println(xhosaCount + " z = " + zuluCount);
+     int xhosaExtCount = statsRecording(xhosaStats,"xhosaStats.txt");
+     statsCalc(xhosaCount,xhosaExtCount, "xhosaStats.txt");
+     int zuluExtCount = statsRecording(zuluStats,"zuluStats.txt");
+     statsCalc(zuluCount,zuluExtCount,"zuluStats.txt");
+
 
 
   }
@@ -60,7 +72,6 @@ public class Analysis{
       if(!wordExists){
         out.write(word + '\n');
       }
-
       out.close();
     }catch(IOException e){
       System.err.println("Error while writing word to file " +e.getMessage());
@@ -89,22 +100,23 @@ public class Analysis{
           permutation += extPermutations.get(i).get(j);
           writeToFile(outputFile,permutation);
         }
-
-
       }
       out.close();
     }catch(IOException e){
       System.err.println("Error while writing to file: " +
              e.getMessage());
     }
-
   }
 
-  public static void rootEndings(ArrayList<String> verbRoots,String filename){
+  public static HashMap<String,Integer> rootEndings(ArrayList<String> verbRoots,String filename){
     //read in extensions.txt, check endings, keep count and write to file
     ArrayList<String> verbExtensions = readFile("extensions.txt");
+    ArrayList<String> verbExtPermutations = readFile("extPermutations.txt");
+    verbExtensions.addAll(verbExtPermutations);
+    HashMap<String,Integer> stats = new HashMap<String,Integer>();
+
     ArrayList<String> matchingVerbRoots = new ArrayList<String>(); //array to keep roots that match with extensions
-    ArrayList<String> noExtensions = new ArrayList<String>(); //keeps roots without the extensions
+    //ArrayList<String> noExtensions = new ArrayList<String>(); //keeps roots without the extensions
 
     for(String extension: verbExtensions){
       writeToFile(filename,extension);
@@ -116,13 +128,10 @@ public class Analysis{
           if(verbEnding.equals(extension)){
             wordCount++;
             writeToFile(filename,verbRoot);
-            //String noExt = verbRoot.substring(0,verbRoot.length()-1);
-            //noExtensions.add(noExt);
           }
         }
-        //String finalCount = "Total roots ending in "+extension + ": " + wordCount+ "\n";
-        //searchFile(filename,finalCount);
-        writeToFile(filename,"\n");
+        stats.put(extension,wordCount);
+        //writeToFile(filename,"\n");
       }else{
         for(String verbRoot: verbRoots){
           int rootLength = verbRoot.length();
@@ -131,28 +140,28 @@ public class Analysis{
             if(verbEnding.equals(extension)){
               wordCount++;
               writeToFile(filename,verbRoot);
-              //String noExt = verbRoot.substring(0,verbRoot.length()-2);
-              //noExtensions.add(noExt);
             }
           }
         }
-        writeToFile(filename,"\n");
-        //String finalCount = "Total roots ending in "+extension + ": " + wordCount + "\n";
-        //searchFile(filename,finalCount);
+        //writeToFile(filename,"\n");
+        stats.put(extension,wordCount);
       }
     }
-    writeToFile("noExtRoots.txt",noExtensions);
+    //writeToFile("noExtRoots.txt",noExtensions);
+    return stats;
+
   }
 
 
-  public static void rootsWithoutExtensions(ArrayList<String> vroots, String outputFile){
+  public static int rootsWithoutExtensions(ArrayList<String> vroots, String outputFile){
     // Extract the roots without the extensions and write to file and keep count
     ArrayList<String> extensions = new ArrayList<String>();
     ArrayList<String> temp1 = readFile("extensions.txt");
     ArrayList<String> temp2 = readFile("extensionsPermutations.txt");
     extensions.addAll(temp1);
     extensions.addAll(temp2);
-    int count = 0;
+    ArrayList<String> noExtensions = new ArrayList<String>();
+
     for(String ext: extensions){
       int extLen = ext.length();
       for(String root : vroots){
@@ -160,17 +169,35 @@ public class Analysis{
         if(ending.equals(ext)){
           String newRoot = root.substring(0,root.length()-extLen);
           writeToFile(outputFile, newRoot);
-          count++;
+          noExtensions.add(newRoot);
         }
       }
     }
+    return noExtensions.size();
   }
 
-  public static void PercentageCalc(){
-    /*nr of roots without extensions (so if with extensions then count only
-bon but not the bonis bonel etc) / nr of roots that have >=1 extensions
-as well] * 100.*/
+  public static int statsRecording(HashMap<String,Integer> stats, String filename){
+    /* Records the amount of verbroots with a specific extension*/
+    Iterator it = stats.entrySet().iterator();
+    int totalWords = 0;
+    while (it.hasNext()) {
+        Map.Entry pair = (Map.Entry)it.next();
+        String value = pair.getKey() + " = " + pair.getValue();
+        writeToFile(filename,value);
+        totalWords += Integer.parseInt("" + pair.getValue());
+        it.remove(); // avoids a ConcurrentModificationException
+    }
+    String netValue = "Total verbs with extensions = " + totalWords;
+    writeToFile(filename, netValue);
 
+    //String percent = "Percentage of extended roots which are already in the dictionary " + statCalc()
+    //writeToFile(filename, percent);
+    return totalWords;
+
+  }
+  public static void statsCalc(int noExt, int ext, String filename){
+      String percent = "Percentage of extended roots which are already in the dictionary " + (noExt/ext)*100;
+      writeToFile(filename, percent);
 
   }
 
@@ -182,7 +209,6 @@ as well] * 100.*/
     }else{
       return false;
     }
-
   }
 
 }
